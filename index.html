@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Primary Meta Tags -->
+  <title>file.love</title>
+  <link rel="icon" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3ctext y='.9em' font-size='90'%3e❤️%3c/text%3e%3c/svg%3e">
+  <meta name="description" content="Peer-to-peer file sharing in your browser">
+  <link rel="stylesheet" href="style.css">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://file.love">
+  <meta property="og:title" content="file.love">
+  <meta property="og:description" content="Peer-to-peer file sharing in your browser">
+  <meta property="og:image" content="https://file.love/heart.png">
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://file.love">
+  <meta property="twitter:title" content="file.love">
+  <meta property="twitter:description" content="Peer-to-peer file sharing in your browser">
+  <meta property="twitter:image" content="https://file.love/heart.png">
+  <script defer src='webtorrent.min.js'></script>
+  <script defer src='prettier-bytes.min.js'></script>
+  <script defer src='upload-element.min.js'></script>
+  <script defer src="index.js"></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="https://file.love">file.love</a>
+      <ul>     
+        <li><a href="https://github.com/midzer/filelove/" target="_blank">GitHub ↗</a></li>
+      </ul>
+    </nav>
+    <h1><u>Minimal</u> p2p file transfer</h1>
+    <p><b>No cloud, no file limit, no bull shit,</b> just <em>simple and fast</em> sharing for the web <mark>you want</mark>.</p>
+  </header>
+  <main>
+    <noscript>Sorry, this App needs JavaScript enabled to run properly.</noscript>
+    <section id="up" class="fade">
+      <label for="upload">Choose file(s)</label>
+      <input type="file" name="upload" id="upload" multiple hidden>
+    </section>
+    <section>
+      <aside id="note" class="fade">File hashing in progress, please wait...</aside>
+    </section>
+    <section id="log"></section>
+    <section id="files"></section>
+    <section id="speed"></section>
+    <section id="output"></section>
+  </main>
+  <footer>
+    <hr>
+    <p>Made by <a href="https://rohner.io" target="_blank">Rohner Solutions ↗</a><br></p>
+  </footer>
+</body>
+</html>
+
