@@ -51,8 +51,8 @@ function addTorrent(torrent) {
         }, 1000);
     });
     torrent.on('done', () => {
-        document.getElementById('status').textContent = 'done';
         updateSpeed(torrent);
+        document.getElementById('status').textContent = 'done';
     });
     const torrentIds = torrent.magnetURI.split('&');
     const torId = torrentIds[0].split(':');
@@ -94,7 +94,7 @@ function updateSpeed(torrent) {
               <div>Peers: ${torrent.numPeers}</div>
               <div>Download speed: ${prettierBytes(torrent.downloadSpeed)}/s</div>
               <div>Upload speed: ${prettierBytes(torrent.uploadSpeed)}/s</div>
-              ${window.location.hash ? `<div class="text-truncate">Remaining: ${convertMS(torrent.timeRemaining)}</div>` : ''}
+              ${window.location.hash ? `<div class="text-truncate">Remaining: ${torrent.done ? 'done' : convertMS(torrent.timeRemaining)}</div>` : ''}
             </div>
       `
     const speedInfo = document.getElementById('speed');
@@ -121,11 +121,8 @@ function convertMS(ms) {
     if (m) {
       ret += m + ' minutes, ';
     }
-    if (s > 1.0) {
+    if (s) {
       ret += s + ' seconds';
-    }
-    else if (!d && !h && !m) {
-      ret = 'done';
     }
 
     return ret;
@@ -171,7 +168,7 @@ uploadElement(document.getElementById('upload'), (err, results) => {
         document.getElementById('up').remove();
         document.getElementById('note').classList.add('show');
         const client = createClient();
-        client.seed(files, { announce, private: true, skipVerify: true }, addTorrent);
+        client.seed(files, { announce }, addTorrent);
     }
 });
 
