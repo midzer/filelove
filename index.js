@@ -13,10 +13,8 @@ function createClient() {
                             'stun:stun.piratenbrandenburg.de:3478'
                         ]
                     }
-                ],
-                sdpSemantics: 'unified-plan'
-            },
-            port: 52323
+                ]
+            }
         }
     });
     client.on('error', logError);
