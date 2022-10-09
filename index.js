@@ -9,8 +9,8 @@ function createClient() {
                 iceServers: [
                     {
                         urls: [
-                            'stun:stun.l.google.com:19302',
-                            'stun:global.stun.twilio.com:3478'
+                            'stun:stun.stochastix.de:3478',
+                            'stun:stun.piratenbrandenburg.de:3478'
                         ]
                     }
                 ],
