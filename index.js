@@ -144,31 +144,33 @@ function throttle (func, limit) {
     }
 }
 
-if (WebTorrent.WEBRTC_SUPPORT) {
-    const hash = window.location.hash.substr(1);
-    if (hash) {
-        downloadTorrent(hash);
+window.addEventListener('DOMContentLoaded', function() {
+    if (WebTorrent.WEBRTC_SUPPORT) {
+        const hash = window.location.hash.substr(1);
+        if (hash) {
+            downloadTorrent(hash);
+	}
+	else {
+	    document.getElementById('up').classList.add('show');
+	}
     }
     else {
-        document.getElementById('up').classList.add('show');
+        document.getElementById('note').textContent = 'Sorry, WebRTC is not supported in your browser.';
     }
-}
-else {
-    document.getElementById('note').textContent = 'Sorry, WebRTC is not supported in your browser.';
-}
 
+    uploadElement(document.getElementById('upload'), (err, results) => {
+        if (err) {
+	    logError(err);
+	    return;
+	}
+        const files = results.map(result => result.file);
+	if (files.length) {
+	    document.getElementById('up').remove();
+	    document.getElementById('note').classList.add('show');
+	    const client = createClient();
 
-uploadElement(document.getElementById('upload'), (err, results) => {
-    if (err) {
-        logError(err);
-        return;
-    }
-    const files = results.map(result => result.file);
-    if (files.length) {
-        document.getElementById('up').remove();
-        document.getElementById('note').classList.add('show');
-        const client = createClient();
-        client.seed(files, { announce }, addTorrent);
-    }
+	    client.seed(files, { announce }, addTorrent);
+	}
+    });
 });
 
