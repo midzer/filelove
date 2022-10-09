@@ -3,7 +3,22 @@ function logError(error) {
 }
 
 function createClient() {
-    const client = new WebTorrent({ tracker: { port: 52323 }});
+    const client = new WebTorrent({
+        tracker: {
+            rtcConfig: {
+                iceServers: [
+                    {
+                        urls: [
+                            'stun:stun.l.google.com:19302',
+                            'stun:global.stun.twilio.com:3478'
+                        ]
+                    }
+                ],
+                sdpSemantics: 'unified-plan'
+            },
+            port: 52323
+        }
+    });
     client.on('error', logError);
     client.on('torrent', function(torrent) {
         document.getElementById('note').textContent = `Keep this tab open and active while transfering "${torrent.name}".`;
@@ -39,6 +54,7 @@ function addTorrent(torrent) {
     });
     torrent.on('done', () => {
         document.getElementById('status').textContent = 'done';
+        updateSpeed(torrent);
     });
     const torrentIds = torrent.magnetURI.split('&');
     const torId = torrentIds[0].split(':');
