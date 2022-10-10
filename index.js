@@ -168,7 +168,6 @@ window.addEventListener('DOMContentLoaded', function() {
 	    document.getElementById('up').remove();
 	    document.getElementById('note').classList.add('show');
 	    const client = createClient();
-
 	    client.seed(files, { announce }, addTorrent);
 	}
     });
