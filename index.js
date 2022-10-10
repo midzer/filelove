@@ -9,8 +9,8 @@ function createClient() {
                 iceServers: [
                     {
                         urls: [
-                            'stun:stun.stochastix.de:3478',
-                            'stun:stun.piratenbrandenburg.de:3478'
+                            'stun:stun.piratenbrandenburg.de:3478',
+                            'stun:stun.stadtwerke-eutin.de:3478'
                         ]
                     }
                 ]
