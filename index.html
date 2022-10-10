@@ -55,7 +55,12 @@
       <h2>FAQ</h2>
       <details>
         <summary>Why can't anyone connect to my seed?</summary>
-        <p>Since iOS 15 seeding doesn't work properly -> <a href="https://bugs.webkit.org/show_bug.cgi?id=233752" target="_blank">Bug report</a>. A workaround is to turn off "WebRTC Platform UDP Sockets" in the Safari -> Advanced -> Experimental Features.</p>
+        <p>Since iOS 15, seeding doesn't work properly -> <a href="https://bugs.webkit.org/show_bug.cgi?id=233752" target="_blank">Bug report</a>. A workaround is to turn off "WebRTC Platform UDP Sockets" in the Safari -> Advanced -> Experimental Features.</p>
+        <p>If you're behind a company firewall or otherwise closed network, connection is not possible right now because of lacking TURN server.</p>
+      </details>
+      <details>
+        <summary>It takes literally ages to connect, why?</summary>
+        <p>Maybe your device is using a VPN or any other proxy.</p>
       </details>
     </article>
   </main>
@@ -65,4 +70,3 @@
   </footer>
 </body>
 </html>
-
