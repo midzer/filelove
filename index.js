@@ -156,6 +156,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     else {
         document.getElementById('note').textContent = 'Sorry, WebRTC is not supported in your browser.';
+        document.getElementById('note').classList.add('show');
     }
 
     uploadElement(document.getElementById('upload'), (err, results) => {
