@@ -32,8 +32,6 @@ function copyLink(btn) {
 }
 
 function downloadTorrent(infohash) {
-    document.getElementById('note').textContent = 'Connecting, please wait...';
-    document.getElementById('note').classList.add('show');
     const client = createClient();
     client.add(infohash, { announce }, addTorrent);
 }
@@ -145,19 +143,23 @@ function throttle (func, limit) {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
+    const noteElement = document.getElementById('note');
+    const upElement = document.getElementById('up');
     if (WebTorrent.WEBRTC_SUPPORT) {
         const hash = window.location.hash.substr(1);
         if (hash) {
+            noteElement.textContent = 'Connecting, please wait...';
             downloadTorrent(hash);
 	}
 	else {
-	    document.getElementById('up').classList.add('show');
+	    noteElement.textContent = 'Please select file(s) to start seeding.';
+	    upElement.classList.add('show');
 	}
     }
     else {
-        document.getElementById('note').textContent = 'Sorry, WebRTC is not supported in your browser.';
-        document.getElementById('note').classList.add('show');
+        noteElement.textContent = 'Sorry, WebRTC is not supported in your browser.';
     }
+    noteElement.classList.add('show');
 
     uploadElement(document.getElementById('upload'), (err, results) => {
         if (err) {
@@ -166,8 +168,8 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
         const files = results.map(result => result.file);
 	if (files.length) {
-	    document.getElementById('up').remove();
-	    document.getElementById('note').classList.add('show');
+	    upElement.remove();
+	    noteElement.textContent = 'File hashing in progress, please wait...';
 	    const client = createClient();
 	    client.seed(files, { announce, private: true }, addTorrent);
 	}
