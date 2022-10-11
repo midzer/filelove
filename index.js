@@ -14,7 +14,8 @@ function createClient() {
                         ]
                     }
                 ]
-            }
+            },
+            port: 52323
         }
     });
     client.on('error', logError);
