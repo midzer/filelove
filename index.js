@@ -1,5 +1,5 @@
-function logError(error) {
-    console.log(error.message);
+function logError(err) {
+    console.log(err.message);
 }
 
 function createClient() {
@@ -65,12 +65,15 @@ function addTorrent(torrent) {
               </ul>`;
     log('files', filesLog);
     torrent.files.forEach(file => {
+        // Stream the file in the browser
+        file.appendTo('#output');
+        
+        // Create download link
         file.getBlobURL((err, url) => {
             if (err) {
                 logError(err);
                 return;
             }
-            // Create download link
             const a = document.createElement('a');
             a.href = url;
             a.textContent = file.name + ` (${prettierBytes(file.length)})`;
@@ -78,8 +81,6 @@ function addTorrent(torrent) {
             const link = `<li><a href="${url}" download="${file.name}" onclick="this.classList.add('visited')">${file.name} <span class="file-size">${prettierBytes(file.length)} ↓</span></a></li>`;
             document.getElementsByClassName('file-list')[0].insertAdjacentHTML('beforeEnd', link);
         });
-        // Stream the file in the browser
-        file.appendTo('#output');
     });
 }
 
