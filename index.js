@@ -151,11 +151,11 @@ window.addEventListener('DOMContentLoaded', function() {
         if (hash) {
             noteElement.textContent = 'Connecting, please wait...';
             downloadTorrent(hash);
-	}
-	else {
-	    noteElement.textContent = 'Please select file(s) to start seeding.';
-	    upElement.classList.add('show');
-	}
+	    }
+	    else {
+	        noteElement.textContent = 'Please select file(s) to start seeding.';
+	        upElement.classList.add('show');
+	    }
     }
     else {
         noteElement.textContent = 'Sorry, WebRTC is not supported in your browser.';
@@ -164,15 +164,15 @@ window.addEventListener('DOMContentLoaded', function() {
 
     uploadElement(document.getElementById('upload'), (err, results) => {
         if (err) {
-	    logError(err);
-	    return;
-	}
-        const files = results.map(result => result.file);
-	if (files.length) {
-	    upElement.remove();
-	    noteElement.textContent = 'File hashing in progress, please wait...';
-	    const client = createClient();
-	    client.seed(files, { announce, private: true }, addTorrent);
-	}
+	        logError(err);
+	        return;
+	    }
+	    const files = results.map(result => result.file);
+	    if (files.length) {
+	        upElement.remove();
+	        noteElement.textContent = 'File hashing in progress, please wait...';
+	        const client = createClient();
+	        client.seed(files, { announce, private: true }, addTorrent);
+	    }
     });
 });
