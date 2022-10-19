@@ -89,7 +89,7 @@ function updateSpeed(torrent) {
     const speed = `
             <div class="transfer-info">
               ${window.location.hash ? `<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: ${progress}%;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">${progress}%</div>
+  <div class="progress-bar" role="progressbar" aria-label="Current download progress" style="width: ${progress}%;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">${progress}%</div>
 </div>` : ''}
               <div>Peers: ${torrent.numPeers}</div>
               <div>Download speed: ${prettierBytes(torrent.downloadSpeed)}/s</div>
