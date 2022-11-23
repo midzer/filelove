@@ -7,11 +7,11 @@
     --color-accent: #118bee15;
     --color-bg: #fff;
     --color-bg-secondary: #e9e9e9;
-    --color-link: #118bee;
+    --color-link: #c7001f;
     --color-secondary: #920de9;
     --color-secondary-accent: #920de90b;
     --color-shadow: #f4f4f4;
-    --color-table: #118bee;
+    --color-table: #c7001f;
     --color-text: #000;
     --color-text-secondary: #999;
     --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -30,11 +30,11 @@
         --color-accent: #0097fc4f;
         --color-bg: #333;
         --color-bg-secondary: #555;
-        --color-link: #0097fc;
+        --color-link: #44f8ce;
         --color-secondary: #e20de9;
         --color-secondary-accent: #e20de94f;
         --color-shadow: #bbbbbb20;
-        --color-table: #0097fc;
+        --color-table: #44f8ce;
         --color-text: #f7f7f7;
         --color-text-secondary: #aaa;
     }
