@@ -48,7 +48,7 @@ function copyLink(event) {
 
 function downloadTorrent(infohash) {
     const client = createClient();
-    client.add(infohash, { announceList }, addTorrent);
+    client.add(infohash, { announce: announceList, announceList: announceList }, addTorrent);
 }
 
 function addTorrent(torrent) {
@@ -152,8 +152,8 @@ const announceList = [
     'udp://tracker.coppersurfer.tk:6969',
     'udp://tracker.opentrackr.org:1337',
     'udp://explodie.org:6969',
-    'udp://tracker.empire-js.us:1337',*/
-    'wss://tracker.btorrent.xyz',
+    'udp://tracker.empire-js.us:1337',
+    'wss://tracker.btorrent.xyz',*/
     'wss://tracker.openwebtorrent.com'
 ]];
 
@@ -193,7 +193,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	        upElement.remove();
 	        noteElement.textContent = 'File hashing in progress, please wait...';
 	        const client = createClient();
-	        client.seed(files, { announceList, private: true }, addTorrent);
+	        client.seed(files, { announce: announceList, announceList: announceList, private: true }, addTorrent);
 	    }
     });
 });
