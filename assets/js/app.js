@@ -1,3 +1,16 @@
+import WebTorrent from '/assets/js/webtorrent.min.js'
+
+function prettyBytes (num) {
+    const units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+    const neg = num < 0
+    if (neg) num = -num
+    if (num < 1) return (neg ? '-' : '') + num + ' B'
+    const exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1)
+    const unit = units[exponent]
+    num = Number((num / Math.pow(1000, exponent)).toFixed(2))
+    return (neg ? '-' : '') + num + ' ' + unit
+}
+
 function logError(err) {
     console.log(err.message);
 }
@@ -26,7 +39,8 @@ function createClient() {
     return client;
 }
 
-function copyLink(btn) {
+function copyLink(event) {
+    const btn = event.target;
     navigator.clipboard.writeText(btn.previousElementSibling.value);
     btn.textContent = 'Copied';
     setTimeout(() => { btn.textContent = 'Copy'; }, 1337);
@@ -34,7 +48,7 @@ function copyLink(btn) {
 
 function downloadTorrent(infohash) {
     const client = createClient();
-    client.add(infohash, { announce }, addTorrent);
+    client.add(infohash, { announceList }, addTorrent);
 }
 
 function addTorrent(torrent) {
@@ -58,7 +72,7 @@ function addTorrent(torrent) {
     const torHash = torId[3];
     const torrentLog = `<label for="link">Share link:</label>
               <input type="text" id="link" name="link" value="https://${window.location.host}/#${torHash}" readonly>
-              <button class="copy" onclick="copyLink(this)">Copy</button>`;
+              <button id="copy-btn">Copy</button>`;
     log('log', torrentLog);
     const filesLog = `<label class="files-label"><sup>${torrent.files.length}</sup> file(s) <code id="status">${window.location.hash ? 'downloading' : 'seeding'}</code></label>
               <ul class="file-list">
@@ -76,12 +90,13 @@ function addTorrent(torrent) {
             }
             const a = document.createElement('a');
             a.href = url;
-            a.textContent = file.name + ` (${prettierBytes(file.length)})`;
+            a.textContent = file.name + ` (${prettyBytes(file.length)})`;
             a.download = file.name;
-            const link = `<li><a href="${url}" download="${file.name}" onclick="this.classList.add('visited')">${file.name} <span class="file-size">${prettierBytes(file.length)} ↓</span></a></li>`;
+            const link = `<li><a href="${url}" download="${file.name}" onclick="this.classList.add('visited')">${file.name} <span class="file-size">${prettyBytes(file.length)} ↓</span></a></li>`;
             document.getElementsByClassName('file-list')[0].insertAdjacentHTML('beforeEnd', link);
         });
     });
+    document.getElementById('copy-btn').addEventListener('click', copyLink);
 }
 
 function updateSpeed(torrent) {
@@ -92,8 +107,8 @@ function updateSpeed(torrent) {
   <div class="progress-bar" role="progressbar" aria-label="Current download progress" style="width: ${progress}%;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">${progress}%</div>
 </div>` : ''}
               <div>Peers: ${torrent.numPeers}</div>
-              <div>Download speed: ${prettierBytes(torrent.downloadSpeed)}/s</div>
-              <div>Upload speed: ${prettierBytes(torrent.uploadSpeed)}/s</div>
+              <div>Download speed: ${prettyBytes(torrent.downloadSpeed)}/s</div>
+              <div>Upload speed: ${prettyBytes(torrent.uploadSpeed)}/s</div>
               ${window.location.hash ? `<div class="text-truncate">Remaining: ${torrent.done ? 'done' : convertMS(torrent.timeRemaining)}</div>` : ''}
             </div>
       `
@@ -132,7 +147,15 @@ function log(id, element) {
     document.getElementById(id).insertAdjacentHTML('afterBegin', element);
 }
 
-const announce = /*[["udp://tracker.leechers-paradise.org:6969"], ["udp://tracker.coppersurfer.tk:6969"], ["udp://tracker.opentrackr.org:1337"], ["udp://explodie.org:6969"], ["udp://tracker.empire-js.us:1337"],*/ [["wss://tracker.btorrent.xyz"], ["wss://tracker.openwebtorrent.com"]];
+const announceList = [
+    [/*'udp://tracker.leechers-paradise.org:6969',
+    'udp://tracker.coppersurfer.tk:6969',
+    'udp://tracker.opentrackr.org:1337',
+    'udp://explodie.org:6969',
+    'udp://tracker.empire-js.us:1337',*/
+    'wss://tracker.btorrent.xyz',
+    'wss://tracker.openwebtorrent.com'
+]];
 
 let timeout;
 function throttle (func, limit) {
@@ -163,37 +186,34 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     noteElement.classList.add('show');
 
-    uploadElement(document.getElementById('upload'), (err, results) => {
-        if (err) {
-	        logError(err);
-	        return;
-	    }
-	    const files = results.map(result => result.file);
-	    if (files.length) {
+    const fileInput = document.getElementById('upload');
+    fileInput.addEventListener('change', () => {
+        const files = fileInput.files;
+        if (files.length) {
 	        upElement.remove();
 	        noteElement.textContent = 'File hashing in progress, please wait...';
 	        const client = createClient();
-	        client.seed(files, { announce, private: true }, addTorrent);
+	        client.seed(files, { announceList, private: true }, addTorrent);
 	    }
     });
 });
 // Install Service Worker
 if ('serviceWorker' in navigator) {
-  // Delay registration until after the page has loaded, to ensure that our
-  // precaching requests don't degrade the first visit experience.
-  // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration
-  window.addEventListener('load', function () {
-    // Your service-worker.js *must* be located at the top-level directory relative to your site.
-    // It won't be able to control pages unless it's located at the same level or higher than them.
-    // *Don't* register service worker file in, e.g., a scripts/ sub-directory!
-    // See https://github.com/slightlyoff/ServiceWorker/issues/468
+    // Delay registration until after the page has loaded, to ensure that our
+    // precaching requests don't degrade the first visit experience.
+    // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration
+    window.addEventListener('load', function () {
+        // Your service-worker.js *must* be located at the top-level directory relative to your site.
+        // It won't be able to control pages unless it's located at the same level or higher than them.
+        // *Don't* register service worker file in, e.g., a scripts/ sub-directory!
+        // See https://github.com/slightlyoff/ServiceWorker/issues/468
     
-    navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('/sw.js');
     
-    navigator.serviceWorker.ready.then(function() {
-      console.log('Service worker registered')
-    }).catch(function (e) {
-      console.error('Error during service worker registration, possibly cookies are blocked:', e)
-    })
-  })
+        navigator.serviceWorker.ready.then(function() {
+        console.log('Service worker registered');
+        }).catch(function (e) {
+            console.error('Error during service worker registration, possibly cookies are blocked:', e);
+        });
+    });
 }
