@@ -80,34 +80,32 @@ function addTorrent(torrent) {
     torrent.files.forEach(async file => {
         // Stream the file in the browser
         const type = file.type;
+        let element;
         if (type.startsWith('video') || type.startsWith('audio')) {
-            const element = document.createElement('video');
+            element = document.createElement('video');
             element.controls = true;
             file.streamTo(element);
-            output.appendChild(element);
         }
-
-        // Create download link
         const blob = await file.blob();
         const url = URL.createObjectURL(blob);
-        let element;
         if (type.startsWith('image')) {
-            element = document.createElement('img');
+            element = document.createElement('img');   
         }
-        else if (!type.startsWith('video') && !type.startsWith('audio')) {
+        else if(type.startsWith('text')) {
             element = document.createElement('iframe');
         }
         if (element) {
             element.src = url;
             output.appendChild(element);
         }
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.textContent = file.name + ` (${prettyBytes(file.length)})`;
-        a.download = file.name;
-        const link = `<li><a href="${url}" download="${file.name}" onclick="this.classList.add('visited')">${file.name} <span class="file-size">${prettyBytes(file.length)} ↓</span></a></li>`;
-        document.getElementsByClassName('file-list')[0].insertAdjacentHTML('beforeEnd', link);   
+        // Create download link
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = url;
+        link.textContent = file.name + ` (${prettyBytes(file.length)}) ↓`;
+        link.download = file.name;
+        li.appendChild(link);
+        document.querySelector('.file-list').appendChild(li);
     });
     document.getElementById('copy-btn').addEventListener('click', copyLink);
 }
