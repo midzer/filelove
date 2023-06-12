@@ -165,9 +165,14 @@ const announceList = [
     'udp://tracker.opentrackr.org:1337',
     'udp://explodie.org:6969',
     'udp://tracker.empire-js.us:1337',*/
-    ['wss://tracker.fastcast.nz'],
+    ['wss://qot.abiir.top'],
+    ['wss://tracker.btorrent.xyz'],
+    ['wss://tracker.dnlab.net'],
+    ['wss://tracker.files.fm:7073'],
+    ['wss://tracker.magnetoo.io'],
+    ['wss://tracker.novage.com.ua'],
     ['wss://tracker.openwebtorrent.com'],
-    ['wss://tracker.btorrent.xyz']
+    ['wss://tracker.sloppyta.co']
 ];
 
 const client = createClient();
