@@ -132,7 +132,16 @@ function log(id, element) {
     document.getElementById(id).insertAdjacentHTML('afterBegin', element);
 }
 
-const announce = /*[["udp://tracker.leechers-paradise.org:6969"], ["udp://tracker.coppersurfer.tk:6969"], ["udp://tracker.opentrackr.org:1337"], ["udp://explodie.org:6969"], ["udp://tracker.empire-js.us:1337"],*/ [["wss://tracker.btorrent.xyz"], ["wss://tracker.openwebtorrent.com"]];
+const announce = [
+    ['wss://qot.abiir.top'],
+    ['wss://tracker.btorrent.xyz'],
+    ['wss://tracker.dnlab.net'],
+    ['wss://tracker.files.fm:7073'],
+    ['wss://tracker.magnetoo.io'],
+    ['wss://tracker.novage.com.ua'],
+    ['wss://tracker.openwebtorrent.com'],
+    ['wss://tracker.sloppyta.co']
+];
 
 let timeout;
 function throttle (func, limit) {
