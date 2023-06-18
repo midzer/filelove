@@ -28,8 +28,6 @@
   <meta property="twitter:description" content="Peer-to-peer file sharing in your browser">
   <meta property="twitter:image" content="https://file.love/android-chrome-512x512.png">
   <script defer src='/assets/js/webtorrent.min.js'></script>
-  <script defer src='/assets/js/prettier-bytes.min.js'></script>
-  <script defer src='/assets/js/upload-element.min.js'></script>
   <script defer src="/assets/js/app.js"></script>
 </head>
 <body>
@@ -46,16 +44,20 @@
   </header>
   <noscript>Sorry, this App needs JavaScript enabled to run properly.</noscript>
   <main>
+    <article>
+      <aside>
+        <p id="note">Select file(s) to start seeding.</p>
+      </aside>
+    </article>
     <section id="up" class="fade">
-      <label for="upload">Choose file(s)</label>
+      <label for="upload">Upload file(s) ↥</label>
       <input type="file" name="upload" id="upload" multiple hidden>
     </section>
     <section>
-      <aside id="note" class="fade"></aside>
+      <aside id="share" hidden></aside>
+      <aside id="speed" hidden></aside>
     </section>
-    <section id="log"></section>
     <section id="files"></section>
-    <section id="speed"></section>
     <section id="output"></section>
     <article id="faq">
       <h2>FAQ</h2>

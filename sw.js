@@ -1,4 +1,4 @@
-const version = '1.0.2';
+const version = '1.1.0';
 const cacheName = `filelove-${version}`;
 
 self.addEventListener('install', function(event) {
@@ -9,8 +9,6 @@ self.addEventListener('install', function(event) {
           '/index.html',
           '/assets/css/style.css',
           '/assets/js/webtorrent.min.js',
-          '/assets/js/prettier-bytes.min.js',
-          '/assets/js/upload-element.min.js',
           '/assets/js/app.js'
         ]
       );
@@ -46,4 +44,3 @@ self.addEventListener('activate', function(event) {
     })
   );
 });
-
