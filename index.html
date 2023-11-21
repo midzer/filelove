@@ -62,24 +62,29 @@
     <article id="faq">
       <h2>FAQ</h2>
       <details>
-        <summary>This doesn't work at all on my iPhone!</summary>
-        <p>Since iOS 15 seeding <b>and</b> leeching doesn't work properly, see <a href="https://bugs.webkit.org/show_bug.cgi?id=233752" target="_blank">bug report</a>. A workaround is to turn off "WebRTC Platform UDP Sockets" in the Safari -> Advanced -> Experimental Features.</p>
+        <summary>Is FileLove secure?</summary>
+        <p>In BitTorrent, there is no additional encryption of transfers between users, but no content or metadata like file names or sizes ever touch our server. As every other peer-to-peer torrent service, your public IP is exposed to an open tracker. If you don't trust this entity, simply don't use FileLove. As always, don't share pirated stuff.</p>
       </details>
       <details>
         <summary>Why can't anyone connect to my seed?</summary>
         <p>If you're behind a company firewall or otherwise closed network, connection is not possible right now because of lacking TURN server.</p>
       </details>
       <details>
+        <summary>How can I improve transfer speed?</summary>
+        <p>All modern browsers throttle activity for background tabs. Keep your FileLove tab active and in foreground while transfering stuff.</p>
+      </details>
+      <details>
         <summary>It takes literally ages to connect, why?</summary>
-        <p>Maybe your device is using a VPN or any other proxy.</p>
+        <p>Maybe your device is using a VPN or any other proxy. Mobile networks could affect this, too.</p>
       </details>
       <details>
         <summary>My tab crashed. What happened?</summary>
         <p>Probaby you ran out of RAM, as FileLove keeps files directly in memory. Try another browser or split files into smaller pieces.</p>
       </details>
       <details>
-        <summary>Is FileLove secure?</summary>
-        <p>In BitTorrent, there is no additional encryption of transfers between users, but no content or metadata like file names or sizes ever touch our server. As every other peer-to-peer torrent service, your public IP is exposed to an open tracker. If you don't trust this entity, simply don't use FileLove. As always, don't share pirated stuff.</p>
+        <summary>This doesn't work at all on my iPhone!</summary>
+        <p><s>Since iOS 15 seeding <b>and</b> leeching doesn't work properly, see <a href="https://bugs.webkit.org/show_bug.cgi?id=233752" rel="nofollow noopener" target="_blank">bug report</a>. A workaround is to turn off "WebRTC Platform UDP Sockets" in the Safari -> Advanced -> Experimental Features.</s></p>
+        <p>This issue has been fixed in iOS 15.4. Proper transfer connection might take a while to establish though.</p>
       </details>
     </article>
     <section>
@@ -93,7 +98,7 @@
   </main>
   <footer>
     <hr>
-    <p>Made by <a href="https://rohner.io" rel="nofollow noopener" target="_blank">Rohner Solutions ↗</a><br></p>
+    <p>Made by <a href="https://rohner.io" rel="noopener" target="_blank">Rohner Solutions ↗</a><br></p>
   </footer>
 </body>
 </html>

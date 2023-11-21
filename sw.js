@@ -1,4 +1,4 @@
-const version = '1.1.0';
+const version = '1.1.1';
 const cacheName = `filelove-${version}`;
 
 self.addEventListener('install', function(event) {
