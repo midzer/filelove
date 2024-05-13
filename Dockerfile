@@ -1,13 +1,12 @@
-FROM ubuntu:latest
+FROM alpine:latest
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends apache2 apache2-utils && \
-    apt-get clean
+RUN apk update && \
+    apk add --no-cache apache2 apache2-utils
 
-WORKDIR /var/www/html/
+WORKDIR /var/www/localhost/htdocs/
 COPY . .
 
 EXPOSE 80
 EXPOSE 443
 
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+CMD ["httpd", "-D", "FOREGROUND"]
