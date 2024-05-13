@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  filelove:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - file_love
+    restart: always
+
+networks:
+  file_love:
+    driver: bridge
